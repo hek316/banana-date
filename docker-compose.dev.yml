@@ -1,6 +1,4 @@
-version: '3.8'
-
-# 개발 환경용 간소화 버전 (핫 리로드 지원)
+# 개발 환경용 간소화 버전 (PostgreSQL만 실행)
 services:
   # PostgreSQL만 Docker로 실행, 프론트/백엔드는 로컬에서 직접 실행
   postgres:
