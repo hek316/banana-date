@@ -13,26 +13,20 @@ You are helping the user start work on a Jira ticket. Follow these steps:
    - Display the ticket title and current status
    - Confirm with the user before proceeding
 
-3. **Sync with remote repository**
-   - Run `gh repo sync` to get latest changes from main
+3. **Ensure on main branch**
+   - Run `git checkout main` to switch to main branch
+   - Run `git pull` or `gh repo sync` to get latest changes (if remote configured)
 
-4. **Create feature branch**
-   - Determine branch type based on ticket type:
-     - Story/Task → `feature/SCRUM-XX`
-     - Bug → `fix/SCRUM-XX`
-     - Improvement → `refactor/SCRUM-XX`
-   - Run `git checkout -b <branch-name>`
-
-5. **Transition Jira ticket to "진행 중"**
+4. **Transition Jira ticket to "진행 중"**
    - Use `mcp__atlassian__transitionJiraIssue` to move ticket to "진행 중" status
-   - Add a comment with the branch name
+   - Add a comment that work has started
 
-6. **Confirm completion**
+5. **Confirm completion**
    - Show current branch: `git branch --show-current`
    - Display Jira ticket new status
-   - Show next steps: "Start working on the ticket, then use `/jira-test` when ready"
+   - Show next steps: "Start working on the ticket on main branch, then use `/jira-test` when ready"
 
 **Important:**
-- Always sync with remote before creating branch
-- Use consistent branch naming based on ticket type
-- Verify ticket exists before creating branch
+- Work directly on main branch (no feature branches)
+- Verify ticket exists before transitioning
+- Ensure main branch is up to date before starting work
