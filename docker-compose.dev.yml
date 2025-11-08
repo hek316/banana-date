@@ -1,0 +1,27 @@
+version: '3.8'
+
+# 개발 환경용 간소화 버전 (핫 리로드 지원)
+services:
+  # PostgreSQL만 Docker로 실행, 프론트/백엔드는 로컬에서 직접 실행
+  postgres:
+    image: postgres:16-alpine
+    container_name: banana-date-postgres-dev
+    environment:
+      POSTGRES_DB: bananadate
+      POSTGRES_USER: bananadate
+      POSTGRES_PASSWORD: bananadate123
+      TZ: Asia/Seoul
+      PGTZ: Asia/Seoul
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bananadate -d bananadate"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_dev_data:
+    driver: local

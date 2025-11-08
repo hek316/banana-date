@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bananadate
+    username: ${DB_USERNAME:bananadate}
+    password: ${DB_PASSWORD:bananadate123}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: false
+
+logging:
+  level:
+    com.bananadate: DEBUG

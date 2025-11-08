@@ -1,0 +1,17 @@
+# AWS 설정
+aws_region = "ap-northeast-2"
+environment = "prod"
+project_name = "banana-date"
+
+# VPC 설정
+vpc_cidr = "10.0.0.0/16"
+availability_zones = ["ap-northeast-2a", "ap-northeast-2c"]
+
+# 데이터베이스 인증 정보
+# 실제 사용 시 terraform.tfvars 파일을 생성하고 안전한 비밀번호로 변경하세요
+db_username = "bananadate"
+db_password = "CHANGE_ME_TO_SECURE_PASSWORD"
+
+# Docker 이미지 태그
+frontend_image_tag = "latest"
+backend_image_tag = "latest"
