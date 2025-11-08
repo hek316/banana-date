@@ -224,13 +224,12 @@ main                    # Production branch (auto-deploys to AWS)
 
 ### Jira Ticket Workflow
 
-**IMPORTANT**: When working on a Jira ticket, ALWAYS follow this workflow:
+**IMPORTANT**: When working on a Jira ticket, ALWAYS follow this workflow using GitHub CLI (`gh`):
 
 1. **Create Feature Branch**
    ```bash
    # Get latest main
-   git checkout main
-   git pull origin main
+   gh repo sync
 
    # Create branch from ticket number
    git checkout -b feature/SCRUM-XX
@@ -242,32 +241,48 @@ main                    # Production branch (auto-deploys to AWS)
    - Make changes in the feature branch
    - Commit regularly with clear messages
    - Keep commits atomic and focused
+   ```bash
+   git add <files>
+   git commit -m "feat(scope): description"
+   ```
 
 3. **Before Completing Ticket**
    - Run all required tests (Playwright for frontend, API tests for backend)
    - Verify functionality works as expected
    - Ensure code follows project conventions
 
-4. **Merge to Main**
+4. **Push and Create Pull Request**
    ```bash
-   # Update main branch
-   git checkout main
-   git pull origin main
+   # Push branch to remote
+   git push -u origin feature/SCRUM-XX
 
-   # Merge feature branch (no fast-forward for clean history)
-   git merge --no-ff feature/SCRUM-XX
+   # Create PR using GitHub CLI
+   gh pr create --title "[SCRUM-XX] Feature title" \
+     --body "## Summary
+   - Changes made
 
-   # Push to remote
-   git push origin main
+   ## Testing
+   - [ ] Playwright tests passed
+   - [ ] Manual testing completed
 
-   # Delete feature branch
-   git branch -d feature/SCRUM-XX
+   Closes SCRUM-XX"
    ```
 
-5. **Complete Jira Ticket**
+5. **Merge Pull Request**
+   ```bash
+   # Review PR
+   gh pr view
+
+   # Merge PR (squash or merge)
+   gh pr merge --squash --delete-branch
+   # or
+   gh pr merge --merge --delete-branch
+   ```
+
+6. **Complete Jira Ticket**
    - ONLY after successful merge to main
    - Transition ticket to "완료" status
-   - Add comment with merge details if needed
+   - Add comment with PR link and merge details
 
 ### Commit Message Convention
 
@@ -309,6 +324,120 @@ chore(deps): upgrade Spring Boot to 3.3.5
 feature/SCRUM-38  # Next.js 프론트엔드 초기 설정
 fix/SCRUM-45      # PostgreSQL connection pool issue
 refactor/SCRUM-52 # Restructure recommendation algorithm
+```
+
+### Git & GitHub CLI Commands
+
+**Repository Management:**
+```bash
+# Clone repository
+gh repo clone <owner>/<repo>
+
+# Sync with remote (fetch + merge)
+gh repo sync
+
+# View repository info
+gh repo view
+
+# Set default branch
+gh repo edit --default-branch main
+```
+
+**Branch Management:**
+```bash
+# List branches
+git branch -a
+
+# Switch branch
+git checkout <branch-name>
+
+# Create and switch to new branch
+git checkout -b feature/SCRUM-XX
+
+# Delete local branch
+git branch -d feature/SCRUM-XX
+
+# Delete remote branch
+git push origin --delete feature/SCRUM-XX
+```
+
+**Pull Request Workflow:**
+```bash
+# Create PR
+gh pr create --title "Title" --body "Description"
+
+# Create PR with template
+gh pr create --web
+
+# List PRs
+gh pr list
+
+# View PR details
+gh pr view <number>
+
+# Check out PR locally
+gh pr checkout <number>
+
+# Review PR
+gh pr review --approve
+gh pr review --comment --body "LGTM"
+gh pr review --request-changes --body "Please fix..."
+
+# Merge PR
+gh pr merge <number> --squash --delete-branch
+gh pr merge <number> --merge --delete-branch
+gh pr merge <number> --rebase --delete-branch
+
+# Close PR
+gh pr close <number>
+```
+
+**Issue Management:**
+```bash
+# Create issue
+gh issue create --title "Bug: Something broke" --body "Details..."
+
+# List issues
+gh issue list
+
+# View issue
+gh issue view <number>
+
+# Close issue
+gh issue close <number>
+```
+
+**Status & Logs:**
+```bash
+# Check status
+git status
+
+# View commit history
+git log --oneline
+git log --graph --oneline --all
+
+# View changes
+git diff
+git diff --staged
+
+# View file history
+git log -p <file>
+```
+
+**Stash Changes:**
+```bash
+# Stash changes
+git stash
+
+# List stashes
+git stash list
+
+# Apply stash
+git stash pop
+git stash apply
+
+# Drop stash
+git stash drop
 ```
 
 ## Troubleshooting
