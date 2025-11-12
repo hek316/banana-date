@@ -17,6 +17,15 @@ spring:
     console:
       enabled: false
 
+# External APIs
+claude:
+  api:
+    key: ${CLAUDE_API_KEY:dummy-key-for-testing}
+
+kakao:
+  api:
+    rest-key: ${KAKAO_REST_API_KEY:12aeb9648f81c9812fe3e738957ac43a}
+
 logging:
   level:
     com.bananadate: DEBUG

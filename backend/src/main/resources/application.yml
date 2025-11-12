@@ -48,6 +48,15 @@ jwt:
   access-token-validity: 3600000  # 1 hour
   refresh-token-validity: 604800000  # 7 days
 
+# External APIs
+claude:
+  api:
+    key: ${CLAUDE_API_KEY}
+
+kakao:
+  api:
+    rest-key: ${KAKAO_REST_API_KEY}
+
 server:
   port: 8080
 
